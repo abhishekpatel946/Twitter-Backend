@@ -7,7 +7,12 @@ import { HashtagsController } from './hashtags/hashtags.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController, UsersController, PostsController, HashtagsController],
+  controllers: [
+    AppController,
+    UsersController,
+    PostsController,
+    HashtagsController,
+  ],
   providers: [AppService],
 })
 export class AppModule {}
