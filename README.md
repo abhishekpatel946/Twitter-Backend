@@ -54,6 +54,17 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Postgres
+
+```bash
+➜  sudo systemctl start postgresql.service
+➜  sudo -i -u postgres
+➜  ➜ psql
+➜  ➜  ➜ create database moodb;
+➜  ➜  ➜ create user mooadmin with _encrypted_ password 'moopass';
+➜  ➜  ➜ grant all priviliges on databse moodb to mooadmin;
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
