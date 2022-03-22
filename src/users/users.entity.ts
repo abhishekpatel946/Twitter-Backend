@@ -1,10 +1,9 @@
-import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
+import { MooBaseEntity } from 'src/commons/base.entity';
+import { Column, Entity } from 'typeorm';
 
-export class UserEntities {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ length: 50 })
+@Entity('users')
+export class UserEntities extends MooBaseEntity {
+  @Column({ length: 50, nullable: false, unique: true })
   username: string;
 
   @Column({ length: 50 })
