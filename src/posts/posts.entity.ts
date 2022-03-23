@@ -1,5 +1,6 @@
 import { MooBaseEntity } from 'src/commons/base.entity';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { UserEntities } from 'src/users/users.entity';
 
 @Entity('posts')
 export class PostsEntity extends MooBaseEntity {
@@ -11,6 +12,10 @@ export class PostsEntity extends MooBaseEntity {
 
   @Column({ name: 'like_count', default: 0 })
   likeCount: number;
+
+  @ManyToOne(() => UserEntities)
+  @JoinColumn({ name: 'author_id' })
+  auther: UserEntities;
 
   @Column({ name: 'repost_count', default: 0 })
   repostCount: number;

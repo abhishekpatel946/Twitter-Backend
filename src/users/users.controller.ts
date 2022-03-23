@@ -7,19 +7,21 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   @Get('/@:username')
-  getUserByUsername(@Param() param): string {
+  getUserByUsername(@Param('username') username: string): string {
     // TODO: get user by username
-    return `user info of username: ${param.username}`;
+    return `user info of username: ${username}`;
   }
 
   @Get('/:userid')
-  getUserByUseriId(@Param() param): string {
+  getUserByUseriId(@Param('userid') userid: string): string {
     // TODO: get user by userid
-    return `user info of userid: ${param.userid}`;
+    return `user info of userid: ${userid}`;
   }
 
   @Post('/')
@@ -29,32 +31,32 @@ export class UsersController {
   }
 
   @Patch('/:userid')
-  updateUser(@Param() param): string {
+  updateUser(@Param('userid') userid: string): string {
     // TODO: update user
-    return `update user: ${param.userid}`;
+    return `update user: ${userid}`;
   }
 
   @Put('/:userid/follow')
-  followUser(@Param() param): string {
+  followUser(@Param('userid') userid: string): string {
     // TODO: follow user
-    return `your followed user: ${param.userid}`;
+    return `your followed user: ${userid}`;
   }
 
   @Delete('/:userid/follow')
-  unfollowUser(@Param() param): string {
+  unfollowUser(@Param('userid') userid: string): string {
     // TODO: unfollow user
-    return `your unfollowed user: ${param.userid}`;
+    return `your unfollowed user: ${userid}`;
   }
 
   @Get('/:userid/followers')
-  getFollowingOfUser(@Param() param): string {
+  getFollowingOfUser(@Param('userid') userid: string): string {
     // TODO: get followers
-    return `your followers: ${param.userid}`;
+    return `your followers: ${userid}`;
   }
 
   @Put('/:userid/followees')
-  getFolloweesOfUser(@Param() param): string {
+  getFolloweesOfUser(@Param('userid') userid: string): string {
     // TODO: get followees
-    return `your followees: ${param.userid}`;
+    return `your followees: ${userid}`;
   }
 }
