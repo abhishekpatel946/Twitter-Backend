@@ -21,12 +21,7 @@ import { PostsEntity } from './posts/posts.entity';
       entities: [UserEntities, PostsEntity],
     }),
   ],
-  controllers: [
-    AppController,
-    UsersController,
-    PostsController,
-    HashtagsController,
-  ],
+  controllers: [AppController, PostsController, HashtagsController],
   providers: [AppService],
 })
 export class AppModule {}
