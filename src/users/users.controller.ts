@@ -10,7 +10,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
-import { UserEntities } from './users.entity';
+import { UserEntity } from './users.entity';
 import { UsersService } from './users.service';
 
 export class UserCreateRequestBody {
@@ -49,7 +49,7 @@ export class UsersController {
   @Post('/')
   async createNewUser(
     @Body() createUserRequest: UserCreateRequestBody,
-  ): Promise<UserEntities> {
+  ): Promise<UserEntity> {
     return await this.userService.createNewUser(createUserRequest);
   }
 

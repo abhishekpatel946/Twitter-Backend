@@ -2,7 +2,7 @@ import { MooBaseEntity } from 'src/commons/base.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity('users')
-export class UserEntities extends MooBaseEntity {
+export class UserEntity extends MooBaseEntity {
   @Column({ length: 50, nullable: false, unique: true })
   username: string;
 

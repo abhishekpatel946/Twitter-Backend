@@ -1,6 +1,8 @@
-import { UserEntities } from './users.entity';
+import { Injectable } from '@nestjs/common';
+import { UserEntity } from './users.entity';
 import { UsersRepository } from './users.repository';
 
+@Injectable()
 export class UsersService {
   constructor(private userRepo: UsersRepository) {}
 
@@ -9,7 +11,7 @@ export class UsersService {
    * @param username
    * @returns
    */
-  public async getUsersByUsername(username: string): Promise<UserEntities> {
+  public async getUsersByUsername(username: string): Promise<UserEntity> {
     return await this.userRepo.findOne({ where: { username } });
   }
 
@@ -18,7 +20,7 @@ export class UsersService {
    * @param userId
    * @returns
    */
-  public async getUsersByUserId(userId: string): Promise<UserEntities> {
+  public async getUsersByUserId(userId: string): Promise<UserEntity> {
     return await this.userRepo.findOne({ where: { id: userId } });
   }
 
@@ -27,9 +29,7 @@ export class UsersService {
    * @param user
    * @returns
    */
-  public async createNewUser(
-    user: Partial<UserEntities>,
-  ): Promise<UserEntities> {
+  public async createNewUser(user: Partial<UserEntity>): Promise<UserEntity> {
     return await this.userRepo.save(user);
   }
 }

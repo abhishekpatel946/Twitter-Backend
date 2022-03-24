@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as compression from 'compression';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -22,9 +21,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
-  // Use Response Compresion
-  app.use(compression());
 
   await app.listen(3000);
 }
