@@ -19,8 +19,8 @@
 ## Description - A Twitter Clone
 Backend API for Moo using Nest framework.
 - NodeJS
--  TypeScript
--  PostgreSQL
+- TypeScript
+- PostgreSQL
 
 ## Installation
 
@@ -64,6 +64,11 @@ $ npm run test:cov
 ➜  ➜  ➜ create user mooadmin with _encrypted_ password 'moopass';
 ➜  ➜  ➜ grant all priviliges on databse moodb to mooadmin;
 ```
+
+## NEST Backend Layer
+
+![img](/assets/nest-backend-layers.png)
+
 
 ## Support
 
