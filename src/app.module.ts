@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PostsController } from './posts/posts.controller';
-import { HashtagsController } from './hashtags/hashtags.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './users/users.entity';
 import { PostsEntity } from './posts/posts.entity';
 import { UsersModule } from './users/users.module';
+import { PostsModule } from './posts/posts.module';
+import { HashtagsService } from './hashtags/hashtags.service';
+import { HashtagsModule } from './hashtags/hashtags.module';
 
 @Module({
   imports: [
@@ -21,8 +22,10 @@ import { UsersModule } from './users/users.module';
       entities: [UserEntity, PostsEntity],
     }),
     UsersModule,
+    PostsModule,
+    HashtagsModule,
   ],
-  controllers: [AppController, PostsController, HashtagsController],
-  providers: [AppService],
+  controllers: [AppController],
+  providers: [AppService, HashtagsService],
 })
 export class AppModule {}
