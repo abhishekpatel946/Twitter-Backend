@@ -32,4 +32,21 @@ export class UsersService {
   public async createNewUser(user: Partial<UserEntity>): Promise<UserEntity> {
     return await this.userRepo.save(user);
   }
+
+  /**
+   * @description update a user with given details
+   * @param userId
+   * @param user
+   * @returns
+   */
+  public async updateUser(
+    userid: string,
+    newUserDetails: Partial<UserEntity>,
+  ): Promise<UserEntity> {
+    const existingUser = await this.userRepo.findOne({
+      where: { id: userid },
+    });
+    if (!existingUser) return null;
+    await this.userRepo.update(existingUser.id, newUserDetails);
+  }
 }

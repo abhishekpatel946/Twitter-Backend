@@ -21,6 +21,12 @@ export class UserCreateRequestBody {
   @ApiPropertyOptional() bio: string;
 }
 
+export class UserUpdateRequestBody {
+  @ApiPropertyOptional() name: string;
+  @ApiPropertyOptional() avatar: string;
+  @ApiPropertyOptional() bio: string;
+}
+
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
@@ -54,9 +60,12 @@ export class UsersController {
   }
 
   @Patch('/:userid')
-  updateUser(@Param('userid') userid: string): string {
-    // TODO: update user
-    return `update user: ${userid}`;
+  async updateUserDetails(
+    @Param('userid') userid: string,
+    @Body() updatedUserRequest: UserUpdateRequestBody,
+  ): Promise<UserEntity> {
+    const user = await this.userService.updateUser(userid, updatedUserRequest);
+    return user;
   }
 
   @Put('/:userid/follow')
