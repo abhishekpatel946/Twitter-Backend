@@ -9,12 +9,27 @@ on:
 jobs:
   build:
     name: Build
-
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: moodb_test
+          POSTGRES_PASSWORD: moopass
+          POSTGRES_USER: mooadmin
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     strategy:
       matrix:
         node-version: [14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - name: Checkout Code
@@ -42,3 +57,27 @@ jobs:
 
       - name: Build Application
         run: npm run build
+
+      - name: Run Unit Tests (with Coverage)
+        run: npm run test:cov
+
+      - name: Upload unit test coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage
+          fail_ci_if_error: true
+          flags: unittests
+          verbose: true
+
+      - name: Run E2E Tests (with Coverage)
+        run: npm run test:e2e:cov
+
+      - name: Upload E2E test coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./coverage-e2e
+          fail_ci_if_error: true
+          flags: e2etests
+          verbose: true
