@@ -21,6 +21,28 @@ export class PostsService {
   }
 
   /**
+   * @description create post
+   */
+  async createPost(post: Partial<PostsEntity>): Promise<PostsEntity> {
+    return this.postsRepository.save(post);
+  }
+
+  /**
+   * @description update post by id
+   * @param id
+   */
+  async updatePost(
+    id: string,
+    newPostDetails: Partial<PostsEntity>,
+  ): Promise<PostsEntity> {
+    const existingPost = await this.postsRepository.findOne({ where: { id } });
+
+    if (!existingPost) return null;
+
+    await this.postsRepository.update(existingPost.id, newPostDetails);
+  }
+
+  /**
    * @description delete post by id
    */
   async deletePost(id: string): Promise<boolean> {
@@ -29,9 +51,30 @@ export class PostsService {
   }
 
   /**
-   * @description create post
+   * @description like post by id
+   * @param id
    */
-  async createPost(post: PostsEntity): Promise<PostsEntity> {
-    return this.postsRepository.save(post);
+  async likePost(id: string): Promise<boolean> {
+    const post = await this.postsRepository.findOne(id);
+    if (!post) {
+      return false;
+    }
+    post.likeCount += 1;
+    await this.postsRepository.save(post);
+    return true;
+  }
+
+  /**
+   * @description unlike post by id
+   * @param id
+   */
+  async unlikePost(id: string): Promise<boolean> {
+    const post = await this.postsRepository.findOne(id);
+    if (!post) {
+      return false;
+    }
+    post.likeCount -= 1;
+    await this.postsRepository.save(post);
+    return true;
   }
 }

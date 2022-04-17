@@ -21,7 +21,7 @@ export class PostsEntity extends MooBaseEntity {
   repostCount: number;
 
   @Column('json', { default: [] })
-  hastags: Array<string>;
+  hashtags: Array<string>;
 
   @Column('json', { default: [] })
   mentions: Array<Mentions>;
@@ -35,7 +35,7 @@ export class PostsEntity extends MooBaseEntity {
   replyTo: PostsEntity[];
 }
 
-class Mentions {
+export class Mentions {
   id: string;
   name: string;
 }

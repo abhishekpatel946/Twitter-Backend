@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './users/users.entity';
 import { PostsEntity } from './posts/posts.entity';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
-import { HashtagsService } from './hashtags/hashtags.service';
 import { HashtagsModule } from './hashtags/hashtags.module';
 import { AuthModule } from './auth/auth.module';
 import { PasswordEntity } from './auth/passwords.entity';
@@ -29,6 +28,6 @@ import { PasswordEntity } from './auth/passwords.entity';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, HashtagsService],
+  providers: [AppService],
 })
 export class AppModule {}
