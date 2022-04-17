@@ -1,18 +1,33 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  CacheKey,
+  CacheTTL,
+  Controller,
+  Get,
+  Param,
+} from '@nestjs/common';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { PostsEntity } from 'src/posts/posts.entity';
+import { HashtagsService } from './hashtags.service';
 
 @ApiTags('hashtags')
 @Controller('hashtags')
 export class HashtagsController {
+  constructor(private hashtagService: HashtagsService) {}
+
+  // @CacheKey('getHashtags')
+  // @CacheTTL(60)
   @Get('/')
-  getHashtags(): string {
-    // TODO: get hashtags from database
-    return 'This action returns all hashtags';
+  async getHashtags(): Promise<any> {
+    const hashtags = await this.hashtagService.getAllHashtags();
+    return hashtags;
   }
 
+  // @CacheKey('getHashtagByName')
+  // @CacheTTL(60)
   @Get('/:tag/posts')
-  getPostsByTag(@Param('tag') tag: string): string {
-    // TODO: get posts by tag from database
-    return `This action returns all posts by tag: ${tag}`;
+  getPostsByhashTag(@Param('tag') tag: string): Promise<PostsEntity[]> {
+    const posts = this.hashtagService.getPostsByTag(tag);
+    return posts;
   }
 }
