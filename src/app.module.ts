@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserEntity } from './users/users.entity';
@@ -12,11 +13,14 @@ import { PasswordEntity } from './auth/passwords.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local', '.env.development'],
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      username: 'mooadmin',
-      password: 'moopass',
-      database: 'moodb',
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       synchronize: true,
       logger: 'advanced-console',
       logging: 'all',
