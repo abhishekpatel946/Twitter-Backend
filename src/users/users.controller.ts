@@ -1,5 +1,7 @@
 import {
   Body,
+  CacheKey,
+  CacheTTL,
   Controller,
   Delete,
   Get,
@@ -32,6 +34,8 @@ export class UserUpdateRequestBody {
 export class UsersController {
   constructor(private userService: UsersService) {}
 
+  // @CacheKey('getUserByUsername')
+  // @CacheTTL(60)
   @Get('/@:username')
   async getUserByUsername(@Param('username') username: string): Promise<any> {
     const user = await this.userService.getUsersByUsername(username);
@@ -42,6 +46,8 @@ export class UsersController {
     return user;
   }
 
+  // @CacheKey('getUserByUserid')
+  // @CacheTTL(60)
   @Get('/:userid')
   async getUserByUseriId(@Param('userid') userid: string): Promise<any> {
     const user = await this.userService.getUsersByUserId(userid);
@@ -84,6 +90,8 @@ export class UsersController {
     return `your unfollowed user: ${userid}`;
   }
 
+  @CacheKey('getFollowingOfUser')
+  @CacheTTL(60)
   @Get('/:userid/followers')
   getFollowingOfUser(@Param('userid') userid: string): string {
     // TODO: get followers
