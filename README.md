@@ -67,7 +67,7 @@ $ npm run test:cov
 
 ## NEST Backend Layer
 
-![img](/assets/nest-backend-layers.png)
+![img](/assets/images/nest-backend-layers.png)
 
 
 ## Support
