@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  # Node
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: twitter-backend
+    image: twitter-backend:1.0
+    depends_on:
+      - postgres
+    networks:
+      - moo-net
+    ports:
+      - '3000:3000'
+  # Database
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - moo-net
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+networks:
+  moo-net:
+    driver: bridge
+volumes:
+  pgdata:
+    driver: local

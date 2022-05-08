@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Second stage as container
-FROM node:14
+FROM node:14 as container
 
 # Copy the build files to the app directory
 COPY --from=builder /app/node_modules ./node_modules
